@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply text-title;
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
