@@ -32,8 +32,8 @@ export default function Navbar () {
   return (
     <>
       <header>
-        <nav className='top-0 w-full absolute z-50'>
-          <div className='max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4'>
+        <nav className='top-0 w-screen relative z-40'>
+          <div className='fixed flex w-screen flex-wrap items-end bg-white shadow-xl justify-end mx-auto p-4'>
             <div className='flex items-center space-x-3 rtl:space-x-reverse' />
             <div>
               <ul className='text-base flex flex-row space-x-8 rtl:space-x-reverse'>

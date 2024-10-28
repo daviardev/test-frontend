@@ -24,13 +24,13 @@ export default function Main () {
               alt={image.alt}
               width={880}
               height={720}
-              className='xl:h-[720px] lg:w-auto xl:w-[880px] h-full w-full right-0 relative lg:absolute'
+              className='xl:h-[720px] lg:w-auto -z-20 xl:w-[880px] h-full w-full right-0 relative lg:absolute'
             />
           ))
         }
 
-        <section className='z-30'>
-          <div className='container mx-auto flex px-5 py-24 md:flex-row flex-col items-center'>
+        <section>
+          <div className='container mx-auto flex px-5 py-24 z-30 md:flex-row flex-col items-center'>
             <div className='
               lg:flex-grow
               lg:w-1/2
