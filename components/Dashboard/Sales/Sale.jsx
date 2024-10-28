@@ -72,7 +72,6 @@ export default function Sale () {
         </div>
         <button className='bg-button text-white px-6 py-2 w-full sm:w-auto'>Save</button>
       </section>
-
     </Modal>
   )
 }
