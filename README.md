@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Test FrontEnd
 
-## Getting Started
+Test FrontEnd, incluye Landing Page, Autenticación con usuario y contraseña en local, api que se ejecuta en local y tailwindcss para estilar
 
-First, run the development server:
+## Clonar el repositorio
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Para clonar este repositorio, ejecuta el siguiente comando en tu terminal:
+
+```
+git clone https://github.com/daviardev/test-frontend.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Requerimientos
+- Versión de node recomendada, 20.18.0 LTS >=
+- Tener GIT instalado
+- Tener npm instalado
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Instalación y ejecución local
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Sigue estos pasos para instalar las dependencias y ejecutar el proyecto en tu entorno local:
 
-## Learn More
+1. Navega al directorio del proyecto:
+   ```
+   cd test-frontend
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Instala las dependencias:
+   ```
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Ejecuta el proyecto:
+   ```
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+El proyecto se ejecutará en `http://localhost:3000`.
 
-## Deploy on Vercel
+## Ejecutar la API en local
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Para iniciar la API en tu entorno local, ejecuta el siguiente comando:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+npx json-server ./app/api/db.json --port 8000
+```
+
+La API se ejecutará en `http://localhost:8000`.
+
+## Credenciales para el dashboard
+
+Utiliza las siguientes credenciales para acceder al dashboard:
+
+- Username: john
+- Password: Admin123
+
+## Generación de tokens secretos
+
+Para generar los tokens secretos necesarios, sigue estos pasos:
+
+1. Crea un archivo `.env.local` en la raíz del proyecto con las siguientes variables:
+
+   ```
+   SECRET_KEY=
+   JWT_SECRET=
+   PORT=8000
+   NEXTAUTH_URL=http://localhost:3000
+   NEXTAUTH_SECRET=
+   ```
+
+2. Para generar los valores de `SECRET_KEY`, `JWT_SECRET` y `NEXTAUTH_SECRET`, ejecuta el siguiente comando una vez por cada variable:
+
+   ```
+   openssl rand -base64 32
+   ```
+
+3. Copia el resultado de cada ejecución y asígnalo como valor a la variable correspondiente en el archivo `.env.local`.
+
+## Información adicional
+
+- Puerto de la API: 8000
+- URL de la API: http://localhost:8000
+- Puerto del proyecto: 3000
+- URL del proyecto: http://localhost:3000
