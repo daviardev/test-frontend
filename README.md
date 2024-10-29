@@ -2,6 +2,8 @@
 
 Test FrontEnd, incluye Landing Page, Autenticación con usuario y contraseña en local, api que se ejecuta en local y tailwindcss para estilar
 
+Bug detectado inesperado, no aparece la lista de la api en la modal, para solucionarlo, precionar Space, en el input de busqueda de la modal
+
 ## Clonar el repositorio
 
 Para clonar este repositorio, ejecuta el siguiente comando en tu terminal:
