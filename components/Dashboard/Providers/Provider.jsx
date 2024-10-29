@@ -9,7 +9,7 @@ import Details from '@/components/Reusable/Details'
 import Input from '../Input'
 import toast from 'react-hot-toast'
 
-export default function Client () {
+export default function Provider () {
   const [allClients, setAllClients] = useState([])
   const [filteredClients, setFilteredClients] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
