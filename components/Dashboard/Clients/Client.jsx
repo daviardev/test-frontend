@@ -14,7 +14,11 @@ import Input from '../Input'
 import toast from 'react-hot-toast'
 
 export default function Client () {
-  const [clients, setClients] = useState([])
+  const [allClients, setAllClients] = useState([])
+  const [clients, setClients] = useState([]) // eslint-disable-line no-unused-vars
+  const [filteredClients, setFilteredClients] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
 
   const [open, setOpen] = useState(false)
 
@@ -28,9 +32,12 @@ export default function Client () {
 
   const [currentClient, setCurrentClient] = useState(null)
 
+  const clientsPerPage = 10
+
   const fetchData = async (page = 1, limit = 20) => {
     try {
       const res = await axios.get(`http://localhost:8000/clientes?_page=${page}&_limit=${limit}&_sort=id&_order=desc`)
+      setAllClients(res.data)
       setClients(res.data)
     } catch (error) {
       toast.error('Error fetching clients:', error)
@@ -65,10 +72,32 @@ export default function Client () {
       setOpen(true)
       fetchData()
     } catch (error) {
-      console.error('Error saving client:', error)
-      toast.error('Error saving client')
+      toast.error('Error saving client', error)
     }
   }
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase()
+    setSearchQuery(query)
+
+    const filtered = allClients.filter(client =>
+      client.RUT.toLowerCase().includes(query) ||
+      client.nombre.toLowerCase().includes(query) ||
+      client.apellido.toLowerCase().includes(query) ||
+      client.telefono.toLowerCase().includes(query) ||
+      client.direccion.toLowerCase().includes(query)
+    )
+    setFilteredClients(filtered)
+    setCurrentPage(1)
+  }
+
+  // Calcular los clientes a mostrar según la página actual y el número de clientes por página
+  const indexOfLastClient = currentPage * clientsPerPage
+  const indexOfFirstClient = indexOfLastClient - clientsPerPage
+  const currentClients = filteredClients.slice(indexOfFirstClient, indexOfLastClient)
+
+  // Función para cambiar de página
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   const handleEdit = (client) => {
     setCurrentClient(client)
@@ -96,7 +125,7 @@ export default function Client () {
   }, [])
 
   const renderClients = () => {
-    return clients.map((client) => (
+    return currentClients.map((client) => (
       <tr key={client.id} className='font-medium text-gray-800'>
         <td className='px-6 py-3'>{client.RUT}</td>
         <td className='px-6 py-3'>{client.nombre}</td>
@@ -136,59 +165,61 @@ export default function Client () {
 
       <hr className='mb-8 mx-11 border-[1.8px] border-[#ceddedff]' />
 
-      <form onSubmit={handleSubmit}>
-        <div className='grid grid-cols-1 sm:grid-cols-12 gap-4'>
-          <div className='sm:col-span-6'>
-            <Input
-              onChange={(e) => setRut(e.target.value)}
-              value={rut}
-              label='RUT'
-              type='text'
-              className='w-full'
-            />
+      {currentClients && (
+        <form onSubmit={handleSubmit}>
+          <div className='grid grid-cols-1 sm:grid-cols-12 gap-4'>
+            <div className='sm:col-span-6'>
+              <Input
+                onChange={(e) => setRut(e.target.value)}
+                value={rut}
+                label='RUT'
+                type='text'
+                className='w-full'
+              />
+            </div>
+            <div className='sm:col-span-6'>
+              <Input
+                value={phone}
+                label='Phone'
+                type='number'
+                className='w-full'
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            <div className='sm:col-span-6'>
+              <Input
+                value={name}
+                label='First Name'
+                className='w-full'
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className='sm:col-span-6'>
+              <Input
+                value={lastName}
+                label='Last Name'
+                className='w-full'
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+            <div className='sm:col-span-12'>
+              <Input
+                value={address}
+                label='Address'
+                className='w-full'
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
           </div>
-          <div className='sm:col-span-6'>
-            <Input
-              value={phone}
-              label='Phone'
-              type='number'
-              className='w-full'
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-          <div className='sm:col-span-6'>
-            <Input
-              value={name}
-              label='First Name'
-              className='w-full'
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className='sm:col-span-6'>
-            <Input
-              value={lastName}
-              label='Last Name'
-              className='w-full'
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </div>
-          <div className='sm:col-span-12'>
-            <Input
-              value={address}
-              label='Address'
-              className='w-full'
-              onChange={(e) => setAddress(e.target.value)}
-            />
-          </div>
-        </div>
 
-        <section className='flex justify-between items-center space-x-4 mt-6'>
-          <button type='submit' className='bg-button text-white px-6 py-2 w-full sm:w-auto'>
-            {editing ? 'Update' : 'Save'}
-          </button>
-          <button onClick={() => setOpen(true)} type='button' className='bg-button text-white px-6 py-2 w-full sm:w-auto'>Details</button>
-        </section>
-      </form>
+          <section className='flex justify-between items-center space-x-4 mt-6'>
+            <button type='submit' className='bg-button text-white px-6 py-2 w-full sm:w-auto'>
+              {editing ? 'Update' : 'Save'}
+            </button>
+            <button onClick={() => setOpen(true)} type='button' className='bg-button text-white px-6 py-2 w-full sm:w-auto'>Details</button>
+          </section>
+        </form>
+      )}
 
       <Details open={open} onClose={() => setOpen(false)}>
         <div className='w-screen max-w-5xl'>
@@ -196,7 +227,13 @@ export default function Client () {
             <h3 className='font-bold text-title'>Filter clients</h3>
             <hr className='mb-8 border-[1.8px] border-[#ceddedff]' />
           </div>
-          <Input type='text' />
+          <Input
+            type='text'
+            value={searchQuery}
+            onChange={handleSearch}
+            placeholder='Search by RUT, name, last name, or phone'
+            className='mb-4'
+          />
           <div className='overflow-x-auto overflow-y-auto max-h-64 p-3'>
             <table className='w-full table-auto'>
               <thead className='sticky top-0 h=12 bg-gray-50 text-xs font-semibold uppercase text-gray-400'>
@@ -226,6 +263,17 @@ export default function Client () {
                 {renderClients()}
               </tbody>
             </table>
+          </div>
+          <div className='flex justify-center mt-4'>
+            {[...Array(Math.ceil(filteredClients.length / clientsPerPage)).keys()].map(pageNumber => (
+              <button
+                key={pageNumber}
+                onClick={() => paginate(pageNumber + 1)}
+                className={`px-3 py-1 mx-1 ${currentPage === pageNumber + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+              >
+                {pageNumber + 1}
+              </button>
+            ))}
           </div>
         </div>
       </Details>
