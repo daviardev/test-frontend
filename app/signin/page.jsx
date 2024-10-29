@@ -33,7 +33,7 @@ export default function SignIn () {
     e.preventDefault()
 
     const result = await signIn('credentials', {
-      redirect: false,
+      callbackUrl: '/dashboard',
       username,
       password
     })
