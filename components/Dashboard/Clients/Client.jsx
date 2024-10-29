@@ -32,9 +32,9 @@ export default function Client () {
 
   const [currentClient, setCurrentClient] = useState(null)
 
-  const clientsPerPage = 10
+  const clientsPerPage = 20
 
-  const fetchData = async (page = 1, limit = 20) => {
+  const fetchData = async (page = 1, limit = 40) => {
     try {
       const res = await axios.get(`http://localhost:8000/clientes?_page=${page}&_limit=${limit}&_sort=id&_order=desc`)
       setAllClients(res.data)
@@ -91,12 +91,10 @@ export default function Client () {
     setCurrentPage(1)
   }
 
-  // Calcular los clientes a mostrar según la página actual y el número de clientes por página
   const indexOfLastClient = currentPage * clientsPerPage
   const indexOfFirstClient = indexOfLastClient - clientsPerPage
   const currentClients = filteredClients.slice(indexOfFirstClient, indexOfLastClient)
 
-  // Función para cambiar de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   const handleEdit = (client) => {

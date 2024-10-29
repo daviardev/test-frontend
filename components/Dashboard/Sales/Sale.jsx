@@ -1,10 +1,21 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
-import Input from '../Input'
+import axios from 'axios'
 
+import { FaRegEdit, FaTrash } from 'react-icons/fa'
+
+import Input from '../Input'
 import Modal from '@/components/Layout/Modal'
+import Details from '@/components/Reusable/Details'
+
+import toast from 'react-hot-toast'
 
 export default function Sale () {
+  const [allSales, setAllSells] = useState([])
+  const [sales, setSales] = useState([]) // eslint-disabled-line no-unused-vars
   return (
     <Modal>
       <header className='flex items-center mb-6'>

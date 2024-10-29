@@ -610,10 +610,10 @@
     },
     {
       "RUT": "865-90-3622",
+      "telefono": "7193962268",
       "nombre": "Samantha",
       "apellido": "Ferrell",
       "direccion": "412 Romero Crossroad\nNew Stephenborough, MN 36916",
-      "telefono": "7193962268",
       "id": "0d27"
     },
     {
@@ -7891,6 +7891,22 @@
       "nombre": "yasuo",
       "apellido": "norotes",
       "direccion": "dsadsadsa"
+    },
+    {
+      "id": "4380",
+      "RUT": "dsa",
+      "telefono": "321",
+      "nombre": "dsa",
+      "apellido": "das",
+      "direccion": "das"
+    },
+    {
+      "id": "7db3",
+      "RUT": "321",
+      "telefono": "321321",
+      "nombre": "yasuo",
+      "apellido": "yasuo",
+      "direccion": "dsadad"
     }
   ],
   "productos": [
@@ -8031,10 +8047,9 @@
       "id": "52a9"
     },
     {
-      "id_unico": "bd7ab710-e1c7-4e5c-a868-ecafc551446e",
-      "nombre": "hour",
-      "precio": 216.33,
-      "stock": 16,
+      "nombre": 16,
+      "precio": "200",
+      "stock": 216.33,
       "sucursal": "Niue",
       "id": "0072"
     },
@@ -15893,6 +15908,20 @@
       "stock": 41,
       "sucursal": "Bouvet Island (Bouvetoya)",
       "id": "749a"
+    },
+    {
+      "id": "efad",
+      "nombre": "dasdsa",
+      "precio": "213",
+      "stock": "2",
+      "sucursal": "dsadsa"
+    },
+    {
+      "nombre": "dsadsa",
+      "precio": "2100",
+      "stock": "12",
+      "sucursal": "dsa",
+      "id": "1820"
     }
   ],
   "sucursales": [
