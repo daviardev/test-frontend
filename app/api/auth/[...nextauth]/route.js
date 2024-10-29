@@ -47,7 +47,7 @@ const authOptions = {
     },
     async session ({ session, token }) {
       session.user.id = token.id
-      session.user.usernmae = token.username
+      session.user.username = token.username
 
       return session
     }
